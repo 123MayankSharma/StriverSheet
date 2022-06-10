@@ -1302,6 +1302,98 @@ Node *flattenLinkedList(Node *head)
 
 ------------------------------------------------------------------------------------------------
 Day 7: Linked List and Arrays
+
+Q1) Rotate LinkedList:
+ListNode* rotateRight(ListNode* head, int k) {
+        //for right rotation
+        if(!head) return NULL;
+        
+        //count number of nodes
+        int count=0;
+        ListNode* tmp=head;
+        
+        while(tmp->next!=NULL){
+            count++;
+            tmp=tmp->next;
+        }
+        // if(!count)return NULL;
+        count+=1;
+        //make linked list a circulrly linked list
+        tmp->next=head;
+        
+        //if a linked list of size x is rotated n*x times where n=integer 
+        //then the linked list remains the same
+        //so for any k actual number of rotations we need to
+        // do is k%length
+        k=k%count;
+        
+        //deattach length-k-1th node so that it's next node becomes head
+        //i.e length-kth node
+        ListNode* t=head;
+        for(int i=0;i<count-k-1;i++){
+            t=t->next;
+        }
+        
+       ListNode* ans=t->next;
+        t->next=NULL;
+        return ans;
+        
+}
+
+//for left rotation of linked list
+Node* reverse(Node* head){
+        Node* prev=NULL,*curr=head,*next=NULL;
+        
+        while(curr!=NULL){
+            next=curr->next;
+            curr->next=prev;
+            prev=curr;
+            curr=next;
+        }
+        
+        return prev;
+    }
+    Node* rotate(Node* head, int k)
+    {
+        // Your code here
+        if(!head) return NULL;
+        
+        //count number of nodes
+        int count=0;
+        head=reverse(head);
+        Node* tmp=head; 
+                          
+        
+        while(tmp->next!=NULL){
+            count++;
+            tmp=tmp->next;
+        }
+        // if(!count)return NULL;
+        count+=1;
+        //make linked list a circulrly linked list
+        tmp->next=head;
+        
+        //if a linked list of size x is rotated n*x times where n=integer 
+        //then the linked list remains the same
+        //so for any k actual number of rotations we need to
+        // do is k%length
+        k=k%count;
+        
+        //deattach length-k-1th node so that it's next node becomes head
+        //i.e length-kth node
+        Node* t=head;
+        for(int i=0;i<count-k-1;i++){
+            t=t->next;
+        }
+        
+       Node* ans=t->next;
+        t->next=NULL;
+        ans=reverse(ans);
+        return ans;
+}
+
+
+
 ------------------------------------------------------------------------------------------------
 Day 8: Greedy Algorithm
 ------------------------------------------------------------------------------------------------
