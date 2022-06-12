@@ -1303,7 +1303,7 @@ Node *flattenLinkedList(Node *head)
 ------------------------------------------------------------------------------------------------
 Day 7: Linked List and Arrays
 
-Q1) Rotate LinkedList:
+Q37) Rotate LinkedList:
 ListNode* rotateRight(ListNode* head, int k) {
         //for right rotation
         if(!head) return NULL;
@@ -1391,8 +1391,90 @@ Node* reverse(Node* head){
         ans=reverse(ans);
         return ans;
 }
+/************************************************************************/
+Q38)Clone a Linked List with next and random pointer:
+	//o(n) space solution
+	Node* copyRandomList(Node* head) {
+		unordered_map<Node*,Node*> mp;
+		
+		Node* tmp=head;
+		//make a copy of every node in original linked list
+		//and map copy of every node with itself
+		while(tmp!=NULL){
+				Node* t=new Node(tmp->val);
+				mp[tmp]=t;
+				tmp=tmp->next;
+		}
+		
+		tmp=head;
+		while(tmp!=NULL){
+			//next pointer in deep copy's any given node
+			//is the copy of next pointer of that original node
+			//and random pointer of any node in deep copy
+			//is the copy of random pointer in the original node
+			//which can be obtained from the map
+				mp[tmp]->next=mp[tmp->next];
+				mp[tmp]->random=mp[tmp->random];
+				tmp=tmp->next;
+		}
+		
+		return mp[head];
+	}
 
 
+//O(1) solution
+Node *copyList(Node *head)
+{
+		 if (head == NULL) return NULL;
+        
+        //step1: Add the copy nodes in between original list
+        Node *curr = head;
+        while (curr != NULL) {
+            Node *next = curr->next;
+            Node *temp = new Node(curr->data);
+            temp->next = next;
+            curr->next = temp;
+            curr = next;
+        }
+        
+        //step2: Assign arbitrary pointers for the copy nodes using original list
+        curr=head;
+        while (curr != NULL) {
+            if (curr->arb == NULL) {
+                curr->next->arb = NULL;
+            }
+            else {
+                curr->next->arb = curr->arb->next;
+            }
+            
+            curr=curr->next->next;
+        }
+        
+        //step3: connect the copy nodes together and remove them from original list
+        curr=head;
+        Node *head2 = curr->next;
+        while (curr != NULL) {
+            Node *next = curr->next->next;
+            if (next != NULL) {
+                curr->next->next = next->next;    
+            }
+            else {
+                curr->next->next = next;
+            }
+            
+            curr->next=next;
+            curr=next;
+        }
+        
+        return head2;
+}
+
+Q39)3 sum:
+vector<vector<int>> threeSum(vector<int>& nums) {
+    vector<vector<int>> ans;
+		
+}
+	
 
 ------------------------------------------------------------------------------------------------
 Day 8: Greedy Algorithm
