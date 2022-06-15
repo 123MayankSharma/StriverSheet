@@ -1305,38 +1305,38 @@ Day 7: Linked List and Arrays
 
 Q37) Rotate LinkedList:
 ListNode* rotateRight(ListNode* head, int k) {
-        //for right rotation
-        if(!head) return NULL;
-        
-        //count number of nodes
-        int count=0;
-        ListNode* tmp=head;
-        
-        while(tmp->next!=NULL){
-            count++;
-            tmp=tmp->next;
-        }
-        // if(!count)return NULL;
-        count+=1;
-        //make linked list a circulrly linked list
-        tmp->next=head;
-        
-        //if a linked list of size x is rotated n*x times where n=integer 
-        //then the linked list remains the same
-        //so for any k actual number of rotations we need to
-        // do is k%length
-        k=k%count;
-        
-        //deattach length-k-1th node so that it's next node becomes head
-        //i.e length-kth node
-        ListNode* t=head;
-        for(int i=0;i<count-k-1;i++){
-            t=t->next;
-        }
-        
-       ListNode* ans=t->next;
-        t->next=NULL;
-        return ans;
+		//for right rotation
+		if(!head) return NULL;
+		
+		//count number of nodes
+		int count=0;
+		ListNode* tmp=head;
+		
+		while(tmp->next!=NULL){
+				count++;
+				tmp=tmp->next;
+		}
+		// if(!count)return NULL;
+		count+=1;
+		//make linked list a circulrly linked list
+		tmp->next=head;
+		
+		//if a linked list of size x is rotated n*x times where n=integer 
+		//then the linked list remains the same
+		//so for any k actual number of rotations we need to
+		// do is k%length
+		k=k%count;
+		
+		//deattach length-k-1th node so that it's next node becomes head
+		//i.e length-kth node
+		ListNode* t=head;
+		for(int i=0;i<count-k-1;i++){
+				t=t->next;
+		}
+		
+		ListNode* ans=t->next;
+		t->next=NULL;
+		return ans;
         
 }
 
@@ -1471,8 +1471,9 @@ Node *copyList(Node *head)
 
 Q39)3 sum:
 vector<vector<int>> threeSum(vector<int>& nums) {
+	//2 pointer approach has been used here
     vector<vector<int>> ans;
-        if(nums.size()<3)return ans;
+    if(nums.size()<3)return ans;
     sort(nums.begin(),nums.end());
 		for(int i=0;i<nums.size()-2;i++){
 			if(i==0||i>0 && nums[i]!=nums[i-1]){
@@ -1480,8 +1481,9 @@ vector<vector<int>> threeSum(vector<int>& nums) {
 				while(lo<hi){
 					if(nums[lo]+nums[hi]==sum){
 						ans.push_back({nums[i],nums[lo],nums[hi]});
+						//while loops to avoid duplicates
 						while (lo < hi && nums[lo] == nums[lo+1]) lo++;
-                        while (lo < hi && nums[hi] == nums[hi-1]) hi--;
+            while (lo < hi && nums[hi] == nums[hi-1]) hi--;
 						lo++;
 						hi--;
 					}else if(nums[lo]+nums[hi]<sum){
@@ -1494,13 +1496,312 @@ vector<vector<int>> threeSum(vector<int>& nums) {
 		}
 		return ans;
 }
+
+Q40)Trapping Rainwater:
+int trap(vector<int>& height){
+	int ans=0;
+	int l=0,r=height.size()-1;
+	int lmax=0,rmax=0;
+	while(l<r){
+		lmax=max(lmax,height[l]);
+		rmax=max(rmax,height[r]);
+		
+		if(lmax<rmax){
+			//if at current point highest tower on left 
+			//is smaller than highest tower on right
+			//it simply means we can fill water = lmax-current_tower's height
+			ans=ans+lmax-height[l];
+			l++;
+		}else{
+			//the above logic also applies if highest tower on right
+			//is smaller than highest tower on left then at current point on r
+			//we can fill water = rmax-current_tower's height
+			ans=ans+rmax-height[r];
+			r--;
+		}
+	}
 	
+	return ans;
+        
+}
+
+Q41)Remove Duplicate from Sorted array:
+int removeDuplicates(vector<int>& nums) {
+	int ans=0;
+	int i=0;
+	while(i<nums.size()){
+			while(i<nums.size()-1 && nums[i]==nums[i+1]){
+					i++;
+			}
+			swap(nums[ans],nums[i]);
+			i++;
+			ans++;
+	}
+	return ans;
+}
+
+Q42)Max Consecutive Ones:
+int findMaxConsecutiveOnes(vector<int>& nums) {
+	 int ans=0;
+	int i=0;
+	while(i<nums.size()){
+		if(nums[i]==1){
+					int tmp=1;
+					while(i<nums.size()-1 && nums[i]==nums[i+1]){
+							tmp++;
+							i++;
+					}
+					ans=max(ans,tmp);
+					i++;
+			}else{
+					i++;
+			}
+	}
+	
+	return ans;
+        
+}
+
 
 ------------------------------------------------------------------------------------------------
 Day 8: Greedy Algorithm
+
+Q43)N meetings in one room:
+int maxMeetings(int start[], int end[], int n)
+{
+	// Your code here
+	vector<pair<int,int>> vp;
+	for(int i=0;i<n;i++){
+			vp.push_back({start[i],end[i]});
+	}
+	
+	//sorting meetings based n their ending time
+	//as if we do all the meetings which ended earlier
+	//we will be able to do maximum number of meetings
+	sort(vp.begin(),vp.end(),[](pair<int,int> a,pair<int,int> b){
+			return a.second<b.second;
+	});
+	
+	int prevEnd=vp[0].second;
+	int count=1;
+	for(int i=1;i<n;i++){
+			//if the current meeting started after 
+			//previous meeting ended
+			//we can perform that meeting
+			//and after doing the meeting we update the
+			//ending time of meeting in prevEnd to compare it
+			//to the start of the next meeting
+			if(vp[i].first>prevEnd){
+					prevEnd=vp[i].second;
+					count++;
+			}
+	}
+		
+	return count;
+}
+
+Q44)Minimum number of platforms required for a railway:
+int findPlatform(int arr[], int dep[], int n){
+	//sort arrival and departure
+	sort(arr,arr+n);
+	sort(dep,dep+n);
+	
+	//what we are maintainig here is the max number of trains
+	//at a particular time
+	
+	int i=0;//pointing at arrival time
+	int j=0;//ponting at departure time
+	
+	int maxTrain=0;
+	int platform=0;
+	
+	while(i<n && j<n){
+		if(arr[i]<=dep[j]){
+			//when one train is entering before another train leaves
+			maxTrain++;
+			i++;
+		}else{
+			//if a train is arriving after one train has departed 
+			//i.e one platform has become empty
+			//and the number of trains present at the same time has reduced by 1
+			maxTrain--;
+			j++;
+		}
+		
+		platform=max(platform,maxTrain);
+	}
+	
+	return platform;
+	
+}
+
+Q45)Job scheduling:
+ vector<int> JobScheduling(Job arr[], int n) {
+  
+        // your code here
+	vector<int> ans(2,0);
+	sort(arr,arr+n,[](Job a,Job b){
+		return	a.profit>b.profit;
+	});
+	
+	//we greedily do the job with max profit first
+	//and do every job that we have on the last day possible
+	//so that on other days we can do other jobs
+	int maxDeadline=-1;
+	
+	for(int i=0;i<n;i++){
+			maxDeadline=max(maxDeadline,arr[i].dead);
+	}
+	
+	vector<int> daysWhenTaskPerformed(maxDeadline+1,-1);
+	int count=0,profit=0;
+	
+	for(int i=0;i<n;i++){
+			
+			for(int j=arr[i].dead;j>=1;j--){
+				//a free day is found
+					if(daysWhenTaskPerformed[j]==-1){
+						daysWhenTaskPerformed[j]=i;
+						count++;
+						profit+=arr[i].profit;
+						break;
+					}
+			}
+	}
+	ans[0]=count;
+	ans[1]=profit;
+	return ans;
+        
+} 
+
+Q46)fractional Knapsack:
+double fractionalKnapsack(int W, Item arr[], int n)
+{
+		// Your code here
+		double ans=0;
+		sort(arr,arr+n,[](Item a,Item b){
+				double valuePerUnitweighta=double(a.value)/(double)(a.weight);
+				double valuePerUnitweightb=double(b.value)/(double)(b.weight);
+				
+				return valuePerUnitweighta>valuePerUnitweightb;
+				
+		});
+		
+		int curWeight=0;
+		
+		for(int i=0;i<n;i++){
+			if(curWeight+arr[i].weight<=W){
+				curWeight+=arr[i].weight;
+				ans+=arr[i].value;
+			}else{
+				int remainingWeight=W-curWeight;
+				ans+=(double)(arr[i].value)/(double)(arr[i].weight)*remainingWeight;
+				break;
+			}
+		}
+		return ans;
+		
+}
+
+
+Q47)Greedy algorithm to find minimum number of coins:
+int findMinimumCoins(int V) 
+{
+    // Write your code here
+    vector<int> coins={1, 2, 5, 10, 20, 50, 100, 500, 1000};
+        int ans=0;
+         for (int i = coins.size() - 1; i >= 0; i--) {
+            while (V >= coins[i]) {
+              V -= coins[i];
+              ans++;
+            }
+      }
+        
+        return ans;
+}
+Q48)Activity Selection(same as N meetiings in one room)
 ------------------------------------------------------------------------------------------------
 Day 9: Recursion
+Q49)Subset Sums:
+void util(vector<int> &arr,int sum,int N,int i,vector<int> &ans){
+	if(i==N){
+			ans.push_back(sum);
+			return;
+	}
+	
+	util(arr,sum,N,i+1,ans);
+	util(arr,sum+arr[i],N,i+1,ans);
+	
+}
+
+vector<int> subsetSums(vector<int> arr, int N)
+{
+		// Write Your Code here
+		vector<int> ans;
+		util(arr,0,N,0,ans);
+		
+		return ans;
+}
+
+Q50)return all possible subset of array:
+void util(set<vector<int>> &ans,int i,vector<int> tmp,vector<int> &nums){
+	if(i==nums.size()){
+		sort(tmp.begin(),tmp.end());
+		ans.insert(tmp);
+		return;
+	}
+	
+	tmp.push_back(nums[i]);
+	util(ans,i+1,tmp,nums);
+	tmp.pop_back();
+	util(ans,i+1,tmp,nums);
+}	
+
+vector<vector<int>> subsetsWithDup(vector<int>& nums){
+	set<vector<int>> ans;
+	vector<int> tmp;
+	util(ans,0,tmp,nums);
+	vector<vector<int>> v;
+	for(auto it:ans){
+		v.push_back(it);
+	}
+	return v;
+}
+
+
+Q51)Combination sum 1:
+void func(int ind, vector<vector<int>> &ans, vector<int> &temp, int B, vector<int> &A){
+	if(ind==(int)A.size()){
+			if(B==0){
+			ans.push_back(temp);
+			}
+			return;
+	}
+	if(A[ind]<=B){
+			temp.push_back(A[ind]);
+			func(ind,ans,temp,B-A[ind],A);
+			temp.pop_back();
+	}
+	func(ind+1,ans,temp,B,A);
+}
+vector<vector<int>> combinationSum(vector<int>& A, int B) {
+  vector<vector<int>> ans;
+	set<int> st;
+	vector<int> temp;
+	for(int i=0; i<A.size(); i++)
+	st.insert(A[i]);
+	while(A.size()>0)A.pop_back();
+	for(auto it:st)
+	A.push_back(it);
+	sort(A.begin(),A.end());
+	func(0,ans,temp,B,A);
+	return ans;
+}
+
+Q52)Combination Sum 2:
+
 ------------------------------------------------------------------------------------------------
+
 Day 10: Recursion and Backtracking
 ------------------------------------------------------------------------------------------------
 Day 11: Binary Search
