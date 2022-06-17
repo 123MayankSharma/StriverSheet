@@ -1778,7 +1778,7 @@ void func(int ind, vector<vector<int>> &ans, vector<int> &temp, int B, vector<in
 			return;
 	}
 	if(A[ind]<=B){
-			temp.push_back(A[ind]);
+			temp.push_back (A[ind]);
 			func(ind,ans,temp,B-A[ind],A);
 			temp.pop_back();
 	}
@@ -1799,6 +1799,85 @@ vector<vector<int>> combinationSum(vector<int>& A, int B) {
 }
 
 Q52)Combination Sum 2:
+void solve(int idx, vector <int> &a, int b, vector <int> temp,vector<vector<int>> &res){
+	if(b == 0){
+			res.push_back(temp);
+			return;
+	}
+	if(idx == a.size())return;
+	if(b < 0)return;
+	sort(a.begin(), a.end());
+	for(int i = idx; i < a.size(); i++){
+		if(i > idx && a[i] == a[i-1])continue;
+		temp.push_back(a[i]);
+		solve(i + 1, a, b - a[i], temp,res);
+		temp.pop_back();
+	}
+}
+vector<vector<int>> combinationSum2(vector<int> &a, int b) {
+	vector<vector<int>> res;
+	vector <int> temp;
+	solve(0, a, b, temp,res);
+	return res;
+}
+
+Q53)Palindrome Partitioning:
+bool ispal(string t){
+	int i=0,j=s.size()-1;
+	
+	while(i<j){
+		if(t[i]==t[j]){
+			i++;
+			j--;
+		}else{
+			return false;
+		}
+	}
+	return true;
+}
+
+void util(string s,int idx,vector<string> &tmp,vector<vector<string>> &ans){
+	if(idx==s.size()){
+		ans.push_back(tmp);
+		return;
+	}
+	
+	for(int i=idx;i<s.size();i++){
+		string t=s.substr(idx,(i-idx)+1);
+		if(ispal(t)){
+			tmp.push_back(t);
+			util(s,i+1,tmp,ans);
+			tmp.pop_back();
+		}
+	}
+}
+vector<vector<string>> partition(string s) {
+	vector<vector<string>> ans;
+	vector<string> tmp;
+	util(s,0,tmp,ans);
+	
+	return ans;
+}
+
+Q54)Kth permutation sequence:
+ string getPermutation(int n, int k) {
+		vector<int> v;
+		for(int i=1;i<=n;i++){
+				v.push_back(i);
+		}
+		sort(v.begin(),v.end());
+		for(int i=0;i<k-1;i++){
+				next_permutation(v.begin(),v.end());
+		}
+		
+		string s="";
+		for(auto it:v){
+				s.push_back(it+'0');
+		}
+		
+		return s;
+}
+	
 
 ------------------------------------------------------------------------------------------------
 
