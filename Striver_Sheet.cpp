@@ -1852,15 +1852,16 @@ void util(string s,int idx,vector<string> &tmp,vector<vector<string>> &ans){
 	}
 }
 vector<vector<string>> partition(string s) {
+	//eg-abaaba
 	vector<vector<string>> ans;
 	vector<string> tmp;
 	util(s,0,tmp,ans);
-	
 	return ans;
 }
 
 Q54)Kth permutation sequence:
  string getPermutation(int n, int k) {
+	//brute force
 		vector<int> v;
 		for(int i=1;i<=n;i++){
 				v.push_back(i);
@@ -1874,11 +1875,37 @@ Q54)Kth permutation sequence:
 		for(auto it:v){
 				s.push_back(it+'0');
 		}
-		
+			
 		return s;
 }
 	
+//optimised
+string getPermutation(int n, int k) {
 
+	int fact=1;
+	vector<int> numbers;
+	for(int i=1;i<n;i++){
+		//we compute (n-1)!
+		fact=fact*i;
+		//store all numbers in numbers vector
+		numbers.push_back(i);
+	}
+	numbers.push_back(n);
+	string ans="";
+	//we follow zero based indexing so we reduce k by 1
+	k=k-1;
+	
+	while(1){
+		//the kth permutation starts with the given number
+		ans.push_back(numbers[k/fact]+'0');
+		numbers.erase(numbers.begin()+k/fact);
+		if(numbers.size()==0) break;
+		//number of numbers we need to arrange
+		k=k%fact;
+		fact=fact/numbers.size();
+	}
+	return ans;
+}
 ------------------------------------------------------------------------------------------------
 
 Day 10: Recursion and Backtracking
