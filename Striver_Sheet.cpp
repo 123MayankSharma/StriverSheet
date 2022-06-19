@@ -1040,9 +1040,9 @@ int intersectPoint(Node* headA, Node* headB)
                 ans=ans->next;
             }
             
-            //start iterating both pointers which point
-            //to head of shorter list and the equivalent position
-            //in longer list respectively
+				//start iterating both pointers which point
+				//to head of shorter list and the equivalent position
+				//in longer list respectively
          tmp1=c1>c2?headB:headA;
         while(tmp1!=ans){
             tmp1=tmp1->next;
@@ -1909,6 +1909,65 @@ string getPermutation(int n, int k) {
 ------------------------------------------------------------------------------------------------
 
 Day 10: Recursion and Backtracking
+Q55)Permutation of string/Array:
+void util(vector<int> &nums,int i,vector<vector<int>> &ans){
+	if(i==nums.size()){
+			ans.push_back(nums);
+			return ;
+	}
+	
+	for(int j=i;j<nums.size();j++){
+			swap(nums[i],nums[j]);
+			util(nums,i+1,ans);
+			swap(nums[i],nums[j]);
+	}
+}
+vector<vector<int>> permute(vector<int>& nums) {
+		vector<vector<int>> ans;
+		util(nums,0,ans);
+		return ans;
+}
+
+Q56)N queens problem:
+bool isSafe(vector<string> tmp,int x,int y){
+	for(int i=0;i<x;i++){
+		for(int j=0;j<tmp.size();i++){
+			if(tmp[i][j]=='Q'){
+				//checking that if a queen is not present 
+				//in the same column as the current queen 
+				//or if there is a queen in the diagonal in
+				//which the current queen is present
+				if(y==j || abs(x-i)==abs(y-j)){
+					return false;
+				}
+			}
+		}
+	}
+	return true;
+}
+void util(int x,vector<string> &tmp,int n,vector<vector<string>> &ans){
+	if(x==n){
+		ans.push_back(tmp);
+		return;
+	}
+	
+	for(int y=0;y<n;y++){
+		if(isSafe(tmp,x,y)){
+			tmp[x][y]='Q';
+			util(x+1,tmp,n,ans);
+			tmp[x][y]='.';
+		}
+	}
+}
+vector<vector<string>> solveNQueens(int n) {
+	vector<vector<string>> ans;
+	
+	vector<string> tmp(n,string(n,'.'));
+	util(0,tmp,n,ans);
+	return ans;
+}
+
+
 ------------------------------------------------------------------------------------------------
 Day 11: Binary Search
 ------------------------------------------------------------------------------------------------
