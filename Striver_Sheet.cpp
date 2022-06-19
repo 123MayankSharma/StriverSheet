@@ -1906,6 +1906,7 @@ string getPermutation(int n, int k) {
 	}
 	return ans;
 }
+
 ------------------------------------------------------------------------------------------------
 
 Day 10: Recursion and Backtracking
@@ -1926,6 +1927,7 @@ vector<vector<int>> permute(vector<int>& nums) {
 		vector<vector<int>> ans;
 		util(nums,0,ans);
 		return ans;
+		
 }
 
 Q56)N queens problem:
@@ -1967,9 +1969,277 @@ vector<vector<string>> solveNQueens(int n) {
 	return ans;
 }
 
+Q57)Sudoku Solver
 
+Q58)M coloring problem:
+
+bool isSafe(int node,int color[],bool graph[101][101],int n,int col){
+	for(int k=0;k<n;k++){
+		//if any of node from 0 to n-1
+		//having edge with node have same color
+		//return false;
+		if(k!=node && graph[k][node]==1 && color[k]==col){
+			return 0;
+		}
+	}
+	
+	return 1;
+}
+bool solve(int node,int color[],int m,int n,bool graph[101][101]){
+	if(node==n){
+		return true;
+	}
+	
+	for(int i=1;i<=m;i++){
+		if(isSafe(node,color,graph,n,i)){
+			color[node]=i;
+			if(solve(node+1,color,m,n,graph))return true;
+			color[node]=0;
+		}
+	}
+	
+	return false;
+}
+bool graphColoring(bool graph[101][101], int m, int n) {
+    // your code here
+    int color[n]={0};
+    if(solve(0,color,m,n,graph)) return true;
+    return false;
+}
+
+Q59)Rat in a maze:
+  
+void util(vector<string> &ans,string tmp,vector<vector<int>> &m,int n,int i,int j,vector<vector<int>> &vis){
+		if(i<0 || i>=m.size() || j<0 || j>=m[0].size()||vis[i][j]==1 || m[i][j]==0){
+				return;
+		}
+		
+		if(i==n-1 && j==n-1){
+				ans.push_back(tmp);
+				return;
+		}
+		
+		vis[i][j]=1;
+		
+		vector<char> dir={'U','L','D','R'};
+		
+		vector<int> row={-1,0,1,0};
+		vector<int> col={0,-1,0,1};
+		
+		for(int k=0;k<row.size();k++){
+				
+				util(ans,tmp+dir[k],m,n,i+row[k],j+col[k],vis);
+				
+		}
+
+		vis[i][j]=0;
+}
+vector<string> findPath(vector<vector<int>> &m, int n) {
+		// Your code goes here
+		vector<string> ans;
+		
+		
+		string tmp="";
+		vector<vector<int>> vis(n,vector<int>(n,0));
+		util(ans,tmp,m,n,0,0,vis);
+		//sort(ans.begin(),ans.end());
+		return ans;
+}
+
+Q60)Word Break:
+void util(string s,vector<string> &dict,vector<string> &ans,string tmp){
+    if(s.size()==0){
+        ans.push_back(tmp);
+        return;
+    }
+    for(int i=0;i<s.size();i++){
+        string left=s.substr(0,i+1);
+        if(find(dict.begin(),dict.end(),left)!=dict.end()){
+            string right=s.substr(i+1);
+            util(right,dict,ans,tmp+left+" ");
+        }
+    }
+}
+vector<string> wordBreak(string &s, vector<string> &dictionary)
+{
+    // Write your code here
+            vector<string> ans;
+          util(s,dictionary,ans,"");
+          return ans;
+}
 ------------------------------------------------------------------------------------------------
 Day 11: Binary Search
+Q61)Nth root of a number:
+double findNthRootOfM(int m, long long n){
+	
+	// Write your code here.
+	double lo=1;
+	double hi=n;
+	
+	while(hi-lo>1e-7){
+		double mid=(lo+hi/2.0);
+		long long ans=1;
+		for(int i=0;i<m;i++){
+			ans=ans*mid;
+		}
+		if(ans<n){
+			lo=mid;
+		}else{
+			hi=mid;
+		}
+	}
+	return lo;
+}
+
+Method 2:Newton raphson method
+double findNthRootOfM(int n, long long m) {
+
+    // Variable to store maximum possible error in order
+    // to obtain the precision of 10^(-6) in the answer.
+    double error = 1e-7;
+
+    // Difference between the current answer, and the answer
+    // in next iteration, which we take as big as possible initially.
+    double diff = 1e18;
+
+    // Guessed answer value
+    double xk = 2;
+
+    // We keep on finding the precise answer till the difference between
+    // answer of two consecutive iteration become less than 10^(-7).
+    while (diff > error) {
+
+        // Answer value in the next iteration.
+        double xk_1 = (pow(xk, n) * (n - 1) + m) / (n * pow(xk, n - 1));
+
+        // Difference of answer in consecutive states updated.
+        diff = abs(xk - xk_1);
+
+        // Updating the current answer with the answer of next iteration.
+        xk = xk_1;
+    }
+
+    // Returning the nthRootOfM with precision upto 6 decimal places
+    // which is xk.
+    return xk;
+}
+
+Q62)find median in row-wise sorted matrix(n*m%2!=0):
+int median(vector<vector<int>> &matrix, int r, int c){
+	// code here   
+	int lo=0,hi=1e9;
+	int n=r*c;
+	while(lo<=hi){
+			int mid=(lo+hi)/2;
+			//counter for counting number
+			//of values smalller than current mid as
+			//median is a number which has n/2 numbers smaller
+			//than itself and n/2 numbers greater than itself
+			//in case of an array or matrix
+			int lesserValues=0;
+			for(int i=0;i<r;i++){
+					int l=0,h=c-1;
+					while(l<=h){
+							int m=l+(h-l)/2;
+							if(matrix[i][m]<=mid)l=m+1;
+							else h=m-1;
+					}
+					lesserValues+=l;
+			}
+			if(lesserValues<=n/2){
+					lo=mid+1;
+			}else{
+					hi=mid-1;
+			}
+	}
+	
+	return lo;
+}
+
+Q63)Find the element that appears once in a sorted array, and the rest element appears twice:
+int singleNonDuplicate(vector<int>& nums){
+	/*
+		in this left array, the first instance of 
+		every element is occurring on the even index 
+		and the second instance on the odd index. 
+		Similarly in the right array, the first 
+		instance of every element is occurring on the
+		odd index and the second index is occurring on 
+		the even index.
+		This is summarized below.
+		
+		We will check our mid element, if it is in the 
+		left array, we will shrink our left array to 
+		the right of this mid element, 
+		if it is in the right array, we will shrink 
+		the right array to the left of this mid element. 
+		This binary search process will continue 
+		till the right array surpasses our left one and 
+		low is pointing towards the breakpoint.
+		
+		
+	*/
+   int n=nums.size(); 
+   int low = 0;
+	 int high = n - 2;
+
+		while (low <= high) {
+			int mid = (low + high) / 2;
+			
+			if (mid % 2 == 0) {
+					if (nums[mid] != nums[mid + 1]) 
+					//Checking whether we are in right half
+
+							high = mid - 1; //Shrinking the right half
+					else
+							low = mid + 1; //Shrinking the left half
+			} else {
+
+					//Checking whether we are in right half
+					if (nums[mid] == nums[mid + 1]) 
+							high = mid - 1; //Shrinking the right half
+					else
+							low = mid + 1; //Shrinking the left half
+			}
+		}
+
+		return nums[low];
+}
+
+
+Q64)Search element in rotated sorted array:
+int search(vector<int>& a, int target){
+	 int lo = 0, hi = a.size() - 1;
+	while(lo<=hi){
+		int mid=(lo+hi)/2;
+		
+		if(a[mid]==target) return mid;
+		if(a[low]<=a[mid]){
+			//if left part is sorted and target
+			//lies in left part
+			if(target>=a[lo] && target<=a[mid]){
+				high=mid-1;
+			}else{
+				lo=mid+1;
+			}
+		}else{
+			if(a[hi]>a[mid]){
+				//if right part is sorted and target
+			//lies in right part
+				if(target>=a[mid] && target<=a[hi]){
+					lo=mid+1;
+				}else{
+					hi=mid-1;
+				}
+			}
+		}
+	}
+	
+   return -1;     
+}
+
+Q65)
+
 ------------------------------------------------------------------------------------------------
 Day 12: Heaps
 ------------------------------------------------------------------------------------------------
