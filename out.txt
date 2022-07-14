@@ -1,0 +1,466 @@
+Striver_Sheet.cpp:1:2: error: ‘Day’ does not name a type
+    1 |  Day 1: Arrays
+      |  ^~~
+Striver_Sheet.cpp:62:1: error: ‘Q2’ does not name a type
+   62 | Q2)Pascals Triangle:
+      | ^~
+Striver_Sheet.cpp:82:1: error: ‘Q3’ does not name a type
+   82 | Q3)Kadanes Algorithm:
+      | ^~
+Striver_Sheet.cpp:98:1: error: ‘Q4’ does not name a type
+   98 | Q4)Next Permutation:
+      | ^~
+Striver_Sheet.cpp:131:1: error: ‘Q5’ does not name a type
+  131 | Q5) Best Time to Buy and Sell Stock:
+      | ^~
+Striver_Sheet.cpp:145:1: error: ‘Q6’ does not name a type
+  145 | Q6)Sort an array of 0 1 & 2:
+      | ^~
+Striver_Sheet.cpp:168:1: error: ‘DAY1’ does not name a type
+  168 | DAY1 DONE!
+      | ^~~~
+Striver_Sheet.cpp:191:1: error: ‘Q8’ does not name a type
+  191 | Q8)Merge Intervals:
+      | ^~
+Striver_Sheet.cpp:224:1: error: ‘Q9’ does not name a type
+  224 | Q9)Merge 2 Sorted Arrays:
+      | ^~
+Striver_Sheet.cpp:272:1: error: ‘Q10’ does not name a type
+  272 | Q10)Repeated and Missing Number:
+      | ^~~
+Striver_Sheet.cpp:295:1: error: ‘Q11’ does not name a type
+  295 | Q11)Find repeating number
+      | ^~~
+Striver_Sheet.cpp:317:1: error: ‘Q12’ does not name a type
+  317 | Q12)Count Inversion
+      | ^~~
+Striver_Sheet.cpp: In function ‘long long int mergeSort(long long int*, long long int, long long int)’:
+Striver_Sheet.cpp:359:40: error: ‘merge’ was not declared in this scope
+  359 |                                 inv += merge(arr,l,mid,r);
+      |                                        ^~~~~
+Striver_Sheet.cpp: At global scope:
+Striver_Sheet.cpp:374:1: error: ‘DAY’ does not name a type
+  374 | DAY 2 DONE!!
+      | ^~~
+Striver_Sheet.cpp:400:19: error: ‘vector’ was not declared in this scope
+  400 | bool searchMatrix(vector<vector<int>>& matrix, int target){
+      |                   ^~~~~~
+Striver_Sheet.cpp:400:26: error: ‘vector’ was not declared in this scope
+  400 | bool searchMatrix(vector<vector<int>>& matrix, int target){
+      |                          ^~~~~~
+Striver_Sheet.cpp:400:33: error: expected primary-expression before ‘int’
+  400 | bool searchMatrix(vector<vector<int>>& matrix, int target){
+      |                                 ^~~
+Striver_Sheet.cpp:400:48: error: expected primary-expression before ‘int’
+  400 | bool searchMatrix(vector<vector<int>>& matrix, int target){
+      |                                                ^~~
+Striver_Sheet.cpp:400:58: error: expression list treated as compound expression in initializer [-fpermissive]
+  400 | bool searchMatrix(vector<vector<int>>& matrix, int target){
+      |                                                          ^
+Striver_Sheet.cpp:432:1: error: ‘Q14’ does not name a type
+  432 | Q14)POW(X,n):
+      | ^~~
+Striver_Sheet.cpp:512:1: error: ‘Q15’ does not name a type
+  512 | Q15)Majority Element (>N/2 times)
+      | ^~~
+Striver_Sheet.cpp:531:1: error: ‘Q16’ does not name a type
+  531 | Q16) MajorityElement (>N/3 times)
+      | ^~~
+Striver_Sheet.cpp:573:1: error: ‘Q17’ does not name a type
+  573 | Q17)Grid Unique Paths:
+      | ^~~
+Striver_Sheet.cpp:591:1: error: ‘Q18’ does not name a type
+  591 | Q18)Reverse Pairs(leetcode)
+      | ^~~
+Striver_Sheet.cpp:626:1: error: ‘Q20’ does not name a type
+  626 | Q20)4sum
+      | ^~~
+Striver_Sheet.cpp:672:1: error: ‘Q21’ does not name a type
+  672 | Q21)Longest Consecutive sequence
+      | ^~~
+Striver_Sheet.cpp:701:1: error: ‘Q22’ does not name a type
+  701 | Q22)Count Number of Subarrays with given xor k
+      | ^~~
+Striver_Sheet.cpp:726:1: error: ‘Q23’ does not name a type
+  726 | Q23)Largest Subarray with 0 sum:
+      | ^~~
+Striver_Sheet.cpp:750:1: error: ‘Q24’ does not name a type
+  750 | Q24)Longest Substring without repeat:
+      | ^~~
+Striver_Sheet.cpp:774:26: error: ‘string’ was not declared in this scope
+  774 | int longestUniqueSubsttr(string S){
+      |                          ^~~~~~
+Striver_Sheet.cpp:796:1: error: ‘Day’ does not name a type
+  796 | Day-4 DONE!!
+      | ^~~
+Striver_Sheet.cpp:825:1: error: ‘Q26’ does not name a type
+  825 | Q26) Find middle of linked list:
+      | ^~~
+Striver_Sheet.cpp:842:1: error: ‘Q27’ does not name a type
+  842 | Q27)Merge 2 sorted Lists:
+      | ^~~
+Striver_Sheet.cpp:888:1: error: ‘ListNode’ does not name a type
+  888 | ListNode* mergeTwoLists(ListNode* l1, ListNode* l2) {
+      | ^~~~~~~~
+Striver_Sheet.cpp:916:1: error: ‘Q28’ does not name a type
+  916 | Q28)Remove N-th node from back of LinkedList:
+      | ^~~
+Striver_Sheet.cpp:945:1: error: ‘Q29’ does not name a type
+  945 | Q29)Add two numbers represented as linked List in reverse order
+      | ^~~
+Striver_Sheet.cpp:975:1: error: ‘Q30’ does not name a type
+  975 | Q30) Delete Node in a Linked List
+      | ^~~
+Striver_Sheet.cpp:982:1: error: ‘DAY’ does not name a type
+  982 | DAY 5 DONE!!!
+      | ^~~
+Striver_Sheet.cpp:1015:20: error: ‘Node’ was not declared in this scope
+ 1015 | int intersectPoint(Node* headA, Node* headB)
+      |                    ^~~~
+Striver_Sheet.cpp:1015:26: error: ‘headA’ was not declared in this scope
+ 1015 | int intersectPoint(Node* headA, Node* headB)
+      |                          ^~~~~
+Striver_Sheet.cpp:1015:33: error: ‘Node’ was not declared in this scope
+ 1015 | int intersectPoint(Node* headA, Node* headB)
+      |                                 ^~~~
+Striver_Sheet.cpp:1015:39: error: ‘headB’ was not declared in this scope
+ 1015 | int intersectPoint(Node* headA, Node* headB)
+      |                                       ^~~~~
+Striver_Sheet.cpp:1015:44: error: expression list treated as compound expression in initializer [-fpermissive]
+ 1015 | int intersectPoint(Node* headA, Node* headB)
+      |                                            ^
+Striver_Sheet.cpp:1057:1: error: ‘Q32’ does not name a type
+ 1057 | Q32)Detect cycle in Linked List
+      | ^~~
+Striver_Sheet.cpp:1075:1: error: ‘Q33’ does not name a type
+ 1075 | Q33)Reverse a LinkedList in groups of size k.
+      | ^~~
+Striver_Sheet.cpp:1121:1: error: ‘Q34’ does not name a type
+ 1121 | Q34)Check whether a linked list is palindrome?
+      | ^~~
+Striver_Sheet.cpp:1135:20: error: ‘ListNode’ was not declared in this scope
+ 1135 |  bool isPalindrome(ListNode* head) {
+      |                    ^~~~~~~~
+Striver_Sheet.cpp:1135:30: error: ‘head’ was not declared in this scope
+ 1135 |  bool isPalindrome(ListNode* head) {
+      |                              ^~~~
+Striver_Sheet.cpp:1164:1: error: ‘Q35’ does not name a type
+ 1164 | Q35)Find the starting Point of the loop of linked list
+      | ^~~
+Striver_Sheet.cpp:1191:1: error: ‘Q36’ does not name a type
+ 1191 | Q36 Flattening a linked List:
+      | ^~~
+Striver_Sheet.cpp:1211:1: error: ‘Node’ does not name a type
+ 1211 | Node *flatten(Node *root)
+      | ^~~~
+Striver_Sheet.cpp:1227:21: error: ‘Node’ has not been declared
+ 1227 |     bool operator()(Node* a, Node* b)
+      |                     ^~~~
+Striver_Sheet.cpp:1227:30: error: ‘Node’ has not been declared
+ 1227 |     bool operator()(Node* a, Node* b)
+      |                              ^~~~
+Striver_Sheet.cpp: In member function ‘bool mycomp::operator()(int*, int*)’:
+Striver_Sheet.cpp:1229:19: error: request for member ‘data’ in ‘* a’, which is of non-class type ‘int’
+ 1229 |         return a->data > b->data;
+      |                   ^~~~
+Striver_Sheet.cpp:1229:29: error: request for member ‘data’ in ‘* b’, which is of non-class type ‘int’
+ 1229 |         return a->data > b->data;
+      |                             ^~~~
+Striver_Sheet.cpp: At global scope:
+Striver_Sheet.cpp:1232:1: error: ‘Node’ does not name a type
+ 1232 | Node* flattenLinkedList(Node* head)
+      | ^~~~
+Striver_Sheet.cpp:1257:1: error: ‘Node’ does not name a type
+ 1257 | Node *merge(Node *first, Node *second)
+      | ^~~~
+Striver_Sheet.cpp:1287:1: error: ‘Node’ does not name a type
+ 1287 | Node *flattenLinkedList(Node *head)
+      | ^~~~
+Striver_Sheet.cpp:1303:1: error: expected unqualified-id before ‘--’ token
+ 1303 | ------------------------------------------------------------------------------------------------
+      | ^~
+Striver_Sheet.cpp:1344:1: error: ‘Node’ does not name a type
+ 1344 | Node* reverse(Node* head){
+      | ^~~~
+Striver_Sheet.cpp:1356:5: error: ‘Node’ does not name a type
+ 1356 |     Node* rotate(Node* head, int k)
+      |     ^~~~
+Striver_Sheet.cpp:1395:1: error: ‘Q38’ does not name a type
+ 1395 | Q38)Clone a Linked List with next and random pointer:
+      | ^~~
+Striver_Sheet.cpp:1426:1: error: ‘Node’ does not name a type
+ 1426 | Node *copyList(Node *head)
+      | ^~~~
+Striver_Sheet.cpp:1472:1: error: ‘Q39’ does not name a type
+ 1472 | Q39)3 sum:
+      | ^~~
+Striver_Sheet.cpp:1500:1: error: ‘Q40’ does not name a type
+ 1500 | Q40)Trapping Rainwater:
+      | ^~~
+Striver_Sheet.cpp:1528:1: error: ‘Q41’ does not name a type
+ 1528 | Q41)Remove Duplicate from Sorted array:
+      | ^~~
+Striver_Sheet.cpp:1543:1: error: ‘Q42’ does not name a type
+ 1543 | Q42)Max Consecutive Ones:
+      | ^~~
+Striver_Sheet.cpp:1566:1: error: expected unqualified-id before ‘--’ token
+ 1566 | ------------------------------------------------------------------------------------------------
+      | ^~
+Striver_Sheet.cpp:1603:1: error: ‘Q44’ does not name a type
+ 1603 | Q44)Minimum number of platforms required for a railway:
+      | ^~~
+Striver_Sheet.cpp:1638:1: error: ‘Q45’ does not name a type
+ 1638 | Q45)Job scheduling:
+      | ^~~
+Striver_Sheet.cpp:1677:1: error: ‘Q46’ does not name a type
+ 1677 | Q46)fractional Knapsack:
+      | ^~~
+Striver_Sheet.cpp:1707:1: error: ‘Q47’ does not name a type
+ 1707 | Q47)Greedy algorithm to find minimum number of coins:
+      | ^~~
+Striver_Sheet.cpp:1722:1: error: ‘Q48’ does not name a type
+ 1722 | Q48)Activity Selection(same as N meetiings in one room)
+      | ^~~
+Striver_Sheet.cpp:1737:1: error: ‘vector’ does not name a type
+ 1737 | vector<int> subsetSums(vector<int> arr, int N)
+      | ^~~~~~
+Striver_Sheet.cpp:1746:1: error: ‘Q50’ does not name a type
+ 1746 | Q50)return all possible subset of array:
+      | ^~~
+Striver_Sheet.cpp:1760:1: error: ‘vector’ does not name a type
+ 1760 | vector<vector<int>> subsetsWithDup(vector<int>& nums){
+      | ^~~~~~
+Striver_Sheet.cpp:1772:1: error: ‘Q51’ does not name a type
+ 1772 | Q51)Combination sum 1:
+      | ^~~
+Striver_Sheet.cpp:1787:1: error: ‘vector’ does not name a type
+ 1787 | vector<vector<int>> combinationSum(vector<int>& A, int B) {
+      | ^~~~~~
+Striver_Sheet.cpp:1801:1: error: ‘Q52’ does not name a type
+ 1801 | Q52)Combination Sum 2:
+      | ^~~
+Striver_Sheet.cpp:1817:1: error: ‘vector’ does not name a type
+ 1817 | vector<vector<int>> combinationSum2(vector<int> &a, int b) {
+      | ^~~~~~
+Striver_Sheet.cpp:1824:1: error: ‘Q53’ does not name a type
+ 1824 | Q53)Palindrome Partitioning:
+      | ^~~
+Striver_Sheet.cpp:1839:6: error: variable or field ‘util’ declared void
+ 1839 | void util(string s,int idx,vector<string> &tmp,vector<vector<string>> &ans){
+      |      ^~~~
+Striver_Sheet.cpp:1839:11: error: ‘string’ was not declared in this scope
+ 1839 | void util(string s,int idx,vector<string> &tmp,vector<vector<string>> &ans){
+      |           ^~~~~~
+Striver_Sheet.cpp:1839:20: error: expected primary-expression before ‘int’
+ 1839 | void util(string s,int idx,vector<string> &tmp,vector<vector<string>> &ans){
+      |                    ^~~
+Striver_Sheet.cpp:1839:28: error: ‘vector’ was not declared in this scope
+ 1839 | void util(string s,int idx,vector<string> &tmp,vector<vector<string>> &ans){
+      |                            ^~~~~~
+Striver_Sheet.cpp:1839:35: error: ‘string’ was not declared in this scope
+ 1839 | void util(string s,int idx,vector<string> &tmp,vector<vector<string>> &ans){
+      |                                   ^~~~~~
+Striver_Sheet.cpp:1839:44: error: ‘tmp’ was not declared in this scope
+ 1839 | void util(string s,int idx,vector<string> &tmp,vector<vector<string>> &ans){
+      |                                            ^~~
+Striver_Sheet.cpp:1839:48: error: ‘vector’ was not declared in this scope
+ 1839 | void util(string s,int idx,vector<string> &tmp,vector<vector<string>> &ans){
+      |                                                ^~~~~~
+Striver_Sheet.cpp:1839:55: error: ‘vector’ was not declared in this scope
+ 1839 | void util(string s,int idx,vector<string> &tmp,vector<vector<string>> &ans){
+      |                                                       ^~~~~~
+Striver_Sheet.cpp:1839:62: error: ‘string’ was not declared in this scope
+ 1839 | void util(string s,int idx,vector<string> &tmp,vector<vector<string>> &ans){
+      |                                                              ^~~~~~
+Striver_Sheet.cpp:1839:72: error: ‘ans’ was not declared in this scope
+ 1839 | void util(string s,int idx,vector<string> &tmp,vector<vector<string>> &ans){
+      |                                                                        ^~~
+Striver_Sheet.cpp:1854:1: error: ‘vector’ does not name a type
+ 1854 | vector<vector<string>> partition(string s) {
+      | ^~~~~~
+Striver_Sheet.cpp:1862:1: error: ‘Q54’ does not name a type
+ 1862 | Q54)Kth permutation sequence:
+      | ^~~
+Striver_Sheet.cpp:1883:1: error: ‘string’ does not name a type
+ 1883 | string getPermutation(int n, int k) {
+      | ^~~~~~
+Striver_Sheet.cpp:1910:1: error: expected unqualified-id before ‘--’ token
+ 1910 | ------------------------------------------------------------------------------------------------
+      | ^~
+Striver_Sheet.cpp:1926:1: error: ‘vector’ does not name a type
+ 1926 | vector<vector<int>> permute(vector<int>& nums) {
+      | ^~~~~~
+Striver_Sheet.cpp:1933:1: error: ‘Q56’ does not name a type
+ 1933 | Q56)N queens problem:
+      | ^~~
+Striver_Sheet.cpp:1950:17: error: ‘vector’ has not been declared
+ 1950 | void util(int x,vector<string> &tmp,int n,vector<vector<string>> &ans){
+      |                 ^~~~~~
+Striver_Sheet.cpp:1950:23: error: expected ‘,’ or ‘...’ before ‘<’ token
+ 1950 | void util(int x,vector<string> &tmp,int n,vector<vector<string>> &ans){
+      |                       ^
+Striver_Sheet.cpp: In function ‘void util(int, int)’:
+Striver_Sheet.cpp:1951:15: error: ‘n’ was not declared in this scope
+ 1951 |         if(x==n){
+      |               ^
+Striver_Sheet.cpp:1952:17: error: ‘ans’ was not declared in this scope
+ 1952 |                 ans.push_back(tmp);
+      |                 ^~~
+Striver_Sheet.cpp:1952:31: error: ‘tmp’ was not declared in this scope
+ 1952 |                 ans.push_back(tmp);
+      |                               ^~~
+Striver_Sheet.cpp:1956:23: error: ‘n’ was not declared in this scope
+ 1956 |         for(int y=0;y<n;y++){
+      |                       ^
+Striver_Sheet.cpp:1957:27: error: ‘tmp’ was not declared in this scope
+ 1957 |                 if(isSafe(tmp,x,y)){
+      |                           ^~~
+Striver_Sheet.cpp:1957:20: error: ‘isSafe’ was not declared in this scope
+ 1957 |                 if(isSafe(tmp,x,y)){
+      |                    ^~~~~~
+Striver_Sheet.cpp:1959:40: error: ‘ans’ was not declared in this scope
+ 1959 |                         util(x+1,tmp,n,ans);
+      |                                        ^~~
+Striver_Sheet.cpp: At global scope:
+Striver_Sheet.cpp:1964:1: error: ‘vector’ does not name a type
+ 1964 | vector<vector<string>> solveNQueens(int n) {
+      | ^~~~~~
+Striver_Sheet.cpp:1972:1: error: ‘Q57’ does not name a type
+ 1972 | Q57)Sudoku Solver
+      | ^~~
+Striver_Sheet.cpp: In function ‘bool solve(int, int*, int, int, bool (*)[101])’:
+Striver_Sheet.cpp:1994:20: error: ‘isSafe’ was not declared in this scope
+ 1994 |                 if(isSafe(node,color,graph,n,i)){
+      |                    ^~~~~~
+Striver_Sheet.cpp: At global scope:
+Striver_Sheet.cpp:2010:1: error: ‘Q59’ does not name a type
+ 2010 | Q59)Rat in a maze:
+      | ^~~
+Striver_Sheet.cpp:2037:1: error: ‘vector’ does not name a type
+ 2037 | vector<string> findPath(vector<vector<int>> &m, int n) {
+      | ^~~~~~
+Striver_Sheet.cpp:2049:1: error: ‘Q60’ does not name a type
+ 2049 | Q60)Word Break:
+      | ^~~
+Striver_Sheet.cpp:2063:1: error: ‘vector’ does not name a type
+ 2063 | vector<string> wordBreak(string &s, vector<string> &dictionary)
+      | ^~~~~~
+Striver_Sheet.cpp:2070:1: error: expected unqualified-id before ‘--’ token
+ 2070 | ------------------------------------------------------------------------------------------------
+      | ^~
+Striver_Sheet.cpp:2094:1: error: ‘Method’ does not name a type
+ 2094 | Method 2:Newton raphson method
+      | ^~~~~~
+Striver_Sheet.cpp:2127:1: error: ‘Q62’ does not name a type
+ 2127 | Q62)find median in row-wise sorted matrix(n*m%2!=0):
+      | ^~~
+Striver_Sheet.cpp:2159:1: error: ‘Q63’ does not name a type
+ 2159 | Q63)Find the element that appears once in a sorted array, and the rest element appears twice:
+      | ^~~
+Striver_Sheet.cpp:2210:1: error: ‘Q64’ does not name a type
+ 2210 | Q64)Search element in rotated sorted array:
+      | ^~~
+Striver_Sheet.cpp:2241:1: error: ‘Q65’ does not name a type
+ 2241 | Q65)Median of 2 sorted array of diffrent size:
+      | ^~~
+Striver_Sheet.cpp:2249:1: error: ‘Q66’ does not name a type
+ 2249 | Q66)kth element of 2 sorted arrays
+      | ^~~
+Striver_Sheet.cpp:2280:1: error: expected unqualified-id before ‘--’ token
+ 2280 | ------------------------------------------------------------------------------------------------
+      | ^~
+Striver_Sheet.cpp:2341:5: error: ‘Node’ does not name a type
+ 2341 |     Node* root;
+      |     ^~~~
+Striver_Sheet.cpp:2350:17: error: ‘string’ has not been declared
+ 2350 |     void insert(string word) {
+      |                 ^~~~~~
+Striver_Sheet.cpp:2364:17: error: ‘string’ has not been declared
+ 2364 |     bool search(string word) {
+      |                 ^~~~~~
+Striver_Sheet.cpp:2382:21: error: ‘string’ has not been declared
+ 2382 |     bool startsWith(string prefix) {
+      |                     ^~~~~~
+Striver_Sheet.cpp: In constructor ‘Trie::Trie()’:
+Striver_Sheet.cpp:2346:9: error: ‘root’ was not declared in this scope
+ 2346 |         root=new Node();
+      |         ^~~~
+Striver_Sheet.cpp:2346:18: error: expected type-specifier before ‘Node’
+ 2346 |         root=new Node();
+      |                  ^~~~
+Striver_Sheet.cpp: In member function ‘void Trie::insert(int)’:
+Striver_Sheet.cpp:2351:9: error: ‘Node’ was not declared in this scope
+ 2351 |         Node* node=root;
+      |         ^~~~
+Striver_Sheet.cpp:2351:15: error: ‘node’ was not declared in this scope
+ 2351 |         Node* node=root;
+      |               ^~~~
+Striver_Sheet.cpp:2351:20: error: ‘root’ was not declared in this scope
+ 2351 |         Node* node=root;
+      |                    ^~~~
+Striver_Sheet.cpp:2353:28: error: request for member ‘size’ in ‘word’, which is of non-class type ‘int’
+ 2353 |         for(int i=0;i<word.size();i++){
+      |                            ^~~~
+Striver_Sheet.cpp:2354:39: error: invalid types ‘int[int]’ for array subscript
+ 2354 |             if(!node->containsKey(word[i])){
+      |                                       ^
+Striver_Sheet.cpp:2355:31: error: invalid types ‘int[int]’ for array subscript
+ 2355 |                 node->put(word[i],new Node());
+      |                               ^
+Striver_Sheet.cpp:2355:39: error: expected type-specifier before ‘Node’
+ 2355 |                 node->put(word[i],new Node());
+      |                                       ^~~~
+Striver_Sheet.cpp:2357:32: error: invalid types ‘int[int]’ for array subscript
+ 2357 |             node=node->get(word[i]);
+      |                                ^
+Striver_Sheet.cpp: In member function ‘bool Trie::search(int)’:
+Striver_Sheet.cpp:2365:9: error: ‘Node’ was not declared in this scope
+ 2365 |         Node* node=root;
+      |         ^~~~
+Striver_Sheet.cpp:2365:15: error: ‘node’ was not declared in this scope
+ 2365 |         Node* node=root;
+      |               ^~~~
+Striver_Sheet.cpp:2365:20: error: ‘root’ was not declared in this scope
+ 2365 |         Node* node=root;
+      |                    ^~~~
+Striver_Sheet.cpp:2367:28: error: request for member ‘size’ in ‘word’, which is of non-class type ‘int’
+ 2367 |         for(int i=0;i<word.size();i++){
+      |                            ^~~~
+Striver_Sheet.cpp:2368:39: error: invalid types ‘int[int]’ for array subscript
+ 2368 |             if(!node->containsKey(word[i])){
+      |                                       ^
+Striver_Sheet.cpp:2371:32: error: invalid types ‘int[int]’ for array subscript
+ 2371 |             node=node->get(word[i]);
+      |                                ^
+Striver_Sheet.cpp: In member function ‘bool Trie::startsWith(int)’:
+Striver_Sheet.cpp:2383:9: error: ‘Node’ was not declared in this scope
+ 2383 |         Node* node=root;
+      |         ^~~~
+Striver_Sheet.cpp:2383:15: error: ‘node’ was not declared in this scope
+ 2383 |         Node* node=root;
+      |               ^~~~
+Striver_Sheet.cpp:2383:20: error: ‘root’ was not declared in this scope
+ 2383 |         Node* node=root;
+      |                    ^~~~
+Striver_Sheet.cpp:2385:30: error: request for member ‘size’ in ‘prefix’, which is of non-class type ‘int’
+ 2385 |         for(int i=0;i<prefix.size();i++){
+      |                              ^~~~
+Striver_Sheet.cpp:2386:41: error: invalid types ‘int[int]’ for array subscript
+ 2386 |             if(!node->containsKey(prefix[i])){
+      |                                         ^
+Striver_Sheet.cpp:2390:34: error: invalid types ‘int[int]’ for array subscript
+ 2390 |             node=node->get(prefix[i]);
+      |                                  ^
+Striver_Sheet.cpp: At global scope:
+Striver_Sheet.cpp:2396:1: error: ‘Q2’ does not name a type
+ 2396 | Q2)Implement trie 2
+      | ^~
+Striver_Sheet.cpp:2430:7: error: redefinition of ‘class Trie’
+ 2430 | class Trie{
+      |       ^~~~
+Striver_Sheet.cpp:2339:7: note: previous definition of ‘class Trie’
+ 2339 | class Trie {
+      |       ^~~~
+Striver_Sheet.cpp:2455:1: error: expected unqualified-id before ‘--’ token
+ 2455 | ------------------------------------------------------------------------------------------------
+      | ^~

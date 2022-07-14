@@ -1971,7 +1971,7 @@ vector<vector<string>> solveNQueens(int n) {
 
 Q57)Sudoku Solver
 
-Q58)M coloring problem:
+Q58)M coloring problePm:
 
 bool isSafe(int node,int color[],bool graph[101][101],int n,int col){
 	for(int k=0;k<n;k++){
@@ -2072,7 +2072,7 @@ Day 11: Binary Search
 Q61)Nth root of a number:
 double findNthRootOfM(int m, long long n){
 	
-	// Write your code here.
+	// Write your code h
 	double lo=1;
 	double hi=n;
 	
@@ -2238,10 +2238,180 @@ int search(vector<int>& a, int target){
    return -1;     
 }
 
-Q65)
+Q65)Median of 2 sorted array of diffrent size:
+double findMedianSortedArrays(vector<int>& nums1, vector<int>& nums2){
+	//will do but pending for now
+        
+}
 
+
+
+Q66)kth element of 2 sorted arrays
+int kthElement(int arr1[], int arr2[], int n, int m, int k)
+{
+	if(n>m){
+		return kthElement(arr2,arr1,m,n,k);
+	}
+	
+	int low=max(0,k-m),high=min(k,n);
+	
+	while(low<=high){
+		int cut1=(low+high)>>1;
+		int cut2=k-cut1;
+		int l1=cut1==0?INT_MIN:arr1[cut1-1];
+		int l2=cut2==0?INT_MIN:arr2[cut2-1];
+		int r1=cut1==n?INT_MAX:arr1[cut1];
+		int r2=cut2==m?INT_MIN:arr2[cut2];
+		
+		if(l1<=r2 && l2<=r1){
+			return max(l1,l2);
+		}
+		
+		else if(l1>r2){
+			high=cut1-1;
+		}
+		else{
+			low=cut1+1;
+		}
+		
+	}
+		return 1;
+}
 ------------------------------------------------------------------------------------------------
 Day 12: Heaps
+Q)Find Median from Data Stream
+class MedianFinder {
+//we are splitting stream into roughly 
+//2 halves.
+//we take one min and one max heap
+//if both heaps are empty we store
+//incoming element in max heap
+//else we compare whether current element is
+//smaller than top of max heap. if yes
+//element goes to max heap else element goes to min heap.
+//then we check if mnh.size()-mxh.size()<=1
+//else we shift top element from min heap
+//to max heap.
+//if mxh.size()==mnh.size() then median is
+//average of top elements of both heap
+//else median is top element of the larger heap.
+public:
+	priority_queue<int> mxh;
+	priority_queue<int,vector<int>,greater<int>> mnh;
+    MedianFinder() {
+        
+    }
+    
+    void addNum(int num) {
+        if(mxh.empty()||mxh.top()>num){
+					mxh.push(num);
+        }else{
+					mnh.push(num);
+        }
+        
+        if(mxh.size()>mnh.size()+1){  
+					mnh.push(mxh.top());
+					mxh.pop();
+        }else if(mnh.size()>mxh.size()+1){
+					mxh.push(mnh.top());
+					mnh.pop();
+        }
+    }
+    
+    double findMedian() {
+        if(mnh.size()==mxh.size()){
+					return (mxh.top()+mnh.top())/2.0;
+        }else{
+					if(mxh.size()>mnh.size()){
+						return mxh.top();
+					}else{
+						return mnh.top();
+					}
+        }
+    }
+};
+
+Q)Find K max pair sum Combination
+vector<int> kMaxSumCombination(vector<int> &A, vector<int> &B, int n, int K){
+	// Write your code here.
+    
+    //what we are roughly doing is
+    //we want to take the elements from top of array i.e maximum
+    //elements and pair them up in such a way that we get top k sum pair.
+    
+    //we can do this by comparing greatest element  we have in pq from a
+    //with the next greatest element we have in pq from b and vice versa.
+    //what this will do is make sure that we are always getting max sum pair on top
+    //as we are considering all possibilities and using max heap so that 
+    //max_sum_pair comes on top.
+     sort(A.begin(), A.end()); 
+    sort(B.begin(), B.end()); 
+  
+    int N = A.size(); 
+  
+    // Max heap which contains tuple of the format 
+    // (sum, (i, j)) i and j are the indices  
+    // of the elements from array A 
+    // and array B which make up the sum. 
+    priority_queue<pair<int, pair<int, int> > > pq; 
+  
+    // my_set is used to store the indices of  
+    // the  pair(i, j) we use my_set to make sure 
+    // the indices doe not repeat inside max heap. 
+    set<pair<int, int> > my_set; 
+  
+    // initialize the heap with the maximum sum 
+    // combination ie (A[N - 1] + B[N - 1]) 
+    // and also push indices (N - 1, N - 1) along  
+    // with sum. 
+    pq.push(make_pair(A[N - 1] + B[N - 1], 
+                      make_pair(N-1, N-1))); 
+  
+    my_set.insert(make_pair(N - 1, N - 1)); 
+  
+    // iterate upto K 
+    vector<int> ans;
+    for (int count=0; count<K; count++) { 
+  
+        // tuple format (sum, (i, j)). 
+        pair<int, pair<int, int> > temp = pq.top(); 
+        pq.pop(); 
+  
+        ans.push_back(temp.first);
+  
+        int i = temp.second.first; 
+        int j = temp.second.second; 
+  
+        int sum = A[i - 1] + B[j]; 
+  
+        // insert (A[i - 1] + B[j], (i - 1, j))  
+        // into max heap. 
+        pair<int, int> temp1 = make_pair(i - 1, j); 
+  
+        // insert only if the pair (i - 1, j) is  
+        // not already present inside the map i.e. 
+        // no repeating pair should be present inside  
+        // the heap. 
+        if (my_set.find(temp1) == my_set.end()) { 
+            pq.push(make_pair(sum, temp1)); 
+            my_set.insert(temp1); 
+        } 
+  
+        // insert (A[i] + B[j - 1], (i, j - 1))  
+        // into max heap. 
+        sum = A[i] + B[j - 1]; 
+        temp1 = make_pair(i, j - 1); 
+  
+        // insert only if the pair (i, j - 1) 
+        // is not present inside the heap. 
+        if (my_set.find(temp1) == my_set.end()) { 
+            pq.push(make_pair(sum, temp1)); 
+            my_set.insert(temp1); 
+        } 
+    } 
+    
+    return ans;
+}
 ------------------------------------------------------------------------------------------------
 Day 13: Stack and Queue
 ------------------------------------------------------------------------------------------------
@@ -2252,10 +2422,389 @@ Day 15: String
 Day 16: String Part-II
 ------------------------------------------------------------------------------------------------
 Day 17: Binary Tree
+Q)Bottom View
+vector<int> bottomView(BinaryTreeNode<int> * root){
+
+    // Write your code here.
+    map<int,int> mp;
+    vector<int> ans;
+    if(!root){
+        return ans;
+    }
+    
+    queue<pair<BinaryTreeNode<int>*,int>> q;
+    q.push({root,0});
+    while(!q.empty()){
+        BinaryTreeNode<int>* node=q.front().first;
+        int x=q.front().second;
+        q.pop();
+        
+        mp[x]=node->data;
+        if(node->left){
+            q.push({node->left,x-1});
+        }
+        
+        if(node->right){
+            q.push({node->right,x+1});
+        }
+        
+        
+    }
+    
+    for(auto it:mp){
+        ans.push_back(it.second);
+    }
+    return ans;
+    
+}
+
+Q)top view
+#include<bits/stdc++.h>
+vector<int> getTopView(TreeNode<int> *root) {
+    // Write your code here.
+
+    // Write your code here.
+    map<int,int> mp;
+    vector<int> ans;
+    if(!root){
+        return ans;
+    }
+    
+    queue<pair<TreeNode<int>*,int>> q;
+    q.push({root,0});
+    while(!q.empty()){
+			
+        TreeNode<int>* node=q.front().first;
+        int x=q.front().second;
+        q.pop();
+        
+        if(mp.find(x)==mp.end())
+        mp[x]=node->val;
+        
+        if(node->left){
+            q.push({node->left,x-1});
+        }
+        
+        if(node->right){
+            q.push({node->right,x+1});
+        }
+        
+        
+    }
+    
+    for(auto it:mp){
+        ans.push_back(it.second);
+    }
+    return ans;
+    
+
+
+}
+
+Q3) Verical view:
+ vector<vector<int>> verticalTraversal(TreeNode* root) {
+		map<int,map<int,multiset<int>>> mp;
+		queue<pair<TreeNode*,pair<int,int>>> q;
+		q.push({root,{0,0}});
+		
+		while(!q.empty()){
+				auto p=q.front();
+				q.pop();
+				TreeNode* node=p.first;
+				int x=p.second.first;
+				int y=p.second.second;
+				mp[x][y].insert(node->val);
+				
+				
+				if(node->left){
+						q.push({node->left,{x-1,y+1}});
+				}
+				
+				if(node->right){
+						q.push({node->right,{x+1,y+1}});
+				}
+		}
+		
+		vector<vector<int>> ans;
+		
+		for(auto p:mp){
+				vector<int> col;
+				for(auto q:p.second){
+						col.insert(col.end(),q.second.begin(),q.second.end());
+				}
+				ans.push_back(col);
+		}
+		return ans;
+}
+ 
+Q)Max Width of Binary Tree   
+int widthOfBinaryTree(TreeNode* root) {
+ int ans = 0;
+queue<pair<TreeNode* , int>> q;
+q.push({root , 0});
+//creating index for every node
+	//so Width is index of last element of a given level
+	//minus index of first element of a given level.
+	
+ //index of right node=2*(idx of parent)+2
+ //index of left node=2*(idx of parent)+1
+  
+ while(!q.empty()) {
+		vector<pair<TreeNode* , int>> v;
+		int sz = q.size();
+		while(sz--) {
+			pair<TreeNode* , int> p = q.front();
+			q.pop();
+			TreeNode* node = p.first;
+			long long num = p.second;
+			v.push_back(p);
+			if(node -> left != NULL) q.push({node -> left , 2*num + 1});
+			if(node -> right != NULL) q.push({node -> right , 2*num + 2});
+		}
+	int minm = v[0].second , maxm = v[(int)v.size()-1].second;
+	ans = max(maxm - minm + 1 , ans);
+}
+return ans;
+}
+
 ------------------------------------------------------------------------------------------------
 Day 18: Binary Tree part-II
+Q)height of tree
+int height(Node* root){
+	if(!root) return 0;
+	int lh=height(root->left);
+	int rh=height(root->right);
+	return 1 + max(lh,rh);
+}
+
+Q)Diameter of binary tree
+int util(TreeNode* root){
+		if(!root) return 0;
+		
+		int lh=util(root->left);
+		int rh=util(root->right);
+		
+		return 1+max(lh,rh);
+}
+void preorder(TreeNode* root,int &ans){
+		if(!root){
+				return;
+		}
+		
+		int lh=util(root->left);
+		int rh=util(root->right);
+		ans=max(ans,lh+rh);
+		
+		preorder(root->left,ans);
+		preorder(root->right,ans);
+}
+int diameterOfBinaryTree(TreeNode* root) {
+		int ans=0;
+		preorder(root,ans);
+		
+		return ans;
+}
+
+Q)check for height balanced binary tree
+int dfs(BinaryTreeNode<int> *root){
+    if(!root){
+        return 0;
+    }
+    
+    int lh=dfs(root->left);
+    if(lh==-1)return -1;
+    int rh=dfs(root->right);
+    if(rh==-1)return -1;
+    
+    if(abs(lh-rh)>1)return -1;
+    
+    return 1+max(lh,rh);
+}
+bool isBalancedBT(BinaryTreeNode<int>* root) {
+    // Write your code here.
+    return dfs(root)!=-1;
+}
+
+
+Q)LCA
+/************************************************************
+
+    Following is the TreeNode class structure
+
+    template <typename T>
+    class TreeNode {
+       public:
+        T data;
+        TreeNode<T> *left;
+        TreeNode<T> *right;
+
+        TreeNode(T data) {
+            this->data = data;
+            left = NULL;
+            right = NULL;
+        }
+    };
+
+************************************************************/
+TreeNode<int>* util(TreeNode<int> *root, int x, int y){
+    if(!root){
+        return NULL;
+    }
+    
+    //we found one of the required nodes 
+    if(root->data==x || root->data==y){
+        return root;
+    }
+    
+    //to check which nodes have been found
+    //in the subtree of current node
+    TreeNode<int>* l=util(root->left,x,y);
+    TreeNode<int>* r=util(root->right,x,y);
+    
+    //if we found both node in the subtree
+    //of current node it means current node
+    //is LCA of required nodes
+    if(l && r){
+        return root;
+    }
+    
+    //if we found only one of the nodes in 
+    //subtree of current node
+    // we return the node we found
+    //in subtree of current node
+    //it indicates that lca lies somewhere above
+    //the current node and that one of the required values
+    //is found in subtree of upper nodes.
+    //or it means that one node lies in subtree of
+    //another node
+    if(l and !r){
+        return l;
+    }else{
+        return r;
+    }
+}
+int lowestCommonAncestor(TreeNode<int> *root, int x, int y)
+{
+	//    Write your code here
+   TreeNode<int>* ans=util(root,x,y);
+    return ans->data;
+}
+
 ------------------------------------------------------------------------------------------------
 Day 19: Binary Tree part-III
+Q)Maximum Path Sum
+int util(TreeNode* root,int &ans){
+	if(!root){
+		return 0;
+	}
+	
+	//if left or right is negative
+	//we ignore it
+	int left=util(root->left,ans);
+	int right=util(root->right,ans);
+	
+	int straightPath=max({root->val,left+root->val,right+root->val});
+	int curvedPath=left+right+A->val;
+	
+	ans=max({ans,curvedPath,straightPath});
+	
+	return straightPath;
+}
+int maxPathSum(TreeNode* root) {
+	//a path in a tree
+	//is simply a path from one node to other
+	//in which we dont visit the same node twice.
+	int ans=INT_MIN;
+	util(root,ans);
+	return ans;
+}
+
+Q)Construct binary Tree from inorder and preorder Traversal
+TreeNode* util(vector<int> &inorder,vector<int> &preorder,unordered_map<int,int> &mp,int start,int end,int &idx){
+	if(start>end) return NULL;
+	
+	//assigning value of current element to root
+	TreeNode* root=new TreeNode(preorder[idx]);
+	//moving pointer to next element
+	idx++;
+	
+	//when we are on leaf node 
+	if(start==end){
+		return root;
+	}
+	//the mid value is index of current root
+	int mid=m[root->val];
+	
+	//in preorder traversal we are iterating from
+	//start and since preorder traversal is like NLR
+	//so after finding the node we build left subtree
+	//then we build right subtree.
+	root->left=util(inorder,preorder,mp,start,mid-1,idx);
+	root->right=util(inorder,preorder,mp,mid+1,end,idx);
+	
+	return root;
+}
+TreeNode* buildTree(vector<int>& preorder, vector<int>& inorder) {
+   unordered_map<int,int> mp;
+   
+   for(int i=0;i<size(inorder);i++){
+		mp[inorder[i]]=i;
+   }
+   // int idxOfRootInInorder=mp[preorder[0]];
+	 int n=preorder.size()
+	TreeNode* ans=util(inorder,preorder,mp,0,n-1,0);
+	
+	return ans;
+}
+
+Q) Construct Binary Tree from Inorder and Postorder Traversal
+TreeNode* util(vector<int> &inorder,vector<int> &postorder,unordered_map<int,int> &mp,int start,int end,int &idx){
+		if(start>end){
+				return NULL;
+		}
+		
+		TreeNode* root=new TreeNode(postorder[idx]);
+		idx-=1;
+		//leaf node
+		if(start==end){
+				return root;
+		}
+		
+		int mid=mp[root->val];
+		//in preorder traversal we need to construct right first
+		//since we are iterating postorder in reverse and
+		//postorder in LRN so its reverse woulf be NRL 
+		//i.e after a node comes it's right subtree and then comes it's
+		//left subtree so we need to construct right subtree first
+		root->right=util(inorder,postorder,mp,mid+1,end,idx);       
+			root->left=util(inorder,postorder,mp,start,mid-1,idx);
+		
+		return root;
+}
+TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
+		unordered_map<int,int> mp;
+		int n=inorder.size();
+		for(int i=0;i<n;i++){
+				mp[inorder[i]]=i;
+		}
+		
+		int idx=n-1;
+		TreeNode* ans=util(inorder,postorder,mp,0,n-1,idx);
+		return ans;
+}
+
+q)Transform to Sum     Tree
+int util(BinaryTreeNode* root){
+	if(!root){
+		return 0;
+	}
+	
+	
+}
+void changeTree(BinaryTreeNode < int > * root) {
+    // Write your code here.
+    util(root);
+}  
 ------------------------------------------------------------------------------------------------
 Day 20: Binary Search Tree
 ------------------------------------------------------------------------------------------------
@@ -2272,6 +2821,472 @@ Day 25: Dynamic Programming
 Day 26: Dynamic Programming Part-II
 ------------------------------------------------------------------------------------------------
 Day 27: Trie
+Q1)Implement Trie
+/*
+    Your Trie object will be instantiated and called as such:
+    Trie* obj = new Trie();
+    obj->insert(word);
+    bool check2 = obj->search(word);
+    bool check3 = obj->startsWith(prefix);
+ */
+
+struct Node{
+    Node* links[26];
+    bool flag=false;
+    void put(char ch,Node* node){
+        links[ch-'a']=node;
+    }
+    bool containsKey(char ch){
+        return links[ch-'a']!=NULL;
+    }
+    
+    Node* get(char ch){
+        return links[ch-'a'];
+    }
+    
+    void setEnd(){
+        flag=true;
+    }
+}
+class Trie {
+private:
+    Node* root;
+public:
+
+    /** Initialize your data structure here. */
+    Trie() {
+        root=new Node();
+    }
+
+    /** Inserts a word into the trie. */
+    void insert(string word) {
+        Node* node=root;
+        
+        for(int i=0;i<word.size();i++){
+            if(!node->containsKey(word[i])){
+                node->put(word[i],new Node());
+            }
+            node=node->get(word[i]);
+        }
+        
+        node->setEnd();
+    }
+
+    /** Returns if the word is in the trie. */
+    bool search(string word) {
+        Node* node=root;
+        
+        for(int i=0;i<word.size();i++){
+            if(!node->containsKey(word[i])){
+                return 0;
+            }
+            node=node->get(word[i]);
+        }
+        
+        if(node->flag==1){
+            return true;
+        }
+        
+        return false;
+    }
+
+    /** Returns if there is any word in the trie that starts with the given prefix. */
+    bool startsWith(string prefix) {
+        Node* node=root;
+        
+        for(int i=0;i<prefix.size();i++){
+            if(!node->containsKey(prefix[i])){
+                return false;
+            }
+            
+            node=node->get(prefix[i]);
+        }
+        return 1;
+    }
+};
+
+Q2)Implement trie 2
+
+struct Node {
+  Node * links[26];
+  int cntEndWith = 0;
+  int cntPrefix = 0;
+
+  bool containsKey(char ch) {
+    return (links[ch - 'a'] != NULL);
+  }
+  Node * get(char ch) {
+    return links[ch - 'a'];
+  }
+  void put(char ch, Node * node) {
+    links[ch - 'a'] = node;
+  }
+  void increaseEnd() {
+    cntEndWith++;
+  }
+  void increasePrefix() {
+    cntPrefix++;
+  }
+  void deleteEnd() {
+    cntEndWith--;
+  }
+  void reducePrefix() {
+    cntPrefix--;
+  }
+  int getEnd() {
+    return cntEndWith;
+  }
+  int getPrefix() {
+    return cntPrefix;
+  }
+};
+class Trie {
+  private:
+    Node * root;
+
+  public:
+    /** Initialize your data structure here. */
+    Trie() {
+      root = new Node();
+    }
+
+  /** Inserts a word into the trie. */
+  void insert(string word) {
+    Node * node = root;
+    for (int i = 0; i < word.length(); i++) {
+      if (!node -> containsKey(word[i])) {
+        node -> put(word[i], new Node());
+      }
+      node = node -> get(word[i]);
+      node -> increasePrefix();
+    }
+    node -> increaseEnd();
+  }
+
+ int countWordsEqualTo(string &word)
+    {
+        Node *node = root;
+        for (int i = 0; i < word.length(); i++)
+        {
+            if (node->containsKey(word[i]))
+            {
+                node = node->get(word[i]);
+            }
+            else
+            {
+                return 0;
+            }
+        }
+        return node->getEnd();
+    }
+
+
+  int countWordsStartingWith(string & word) {
+    Node * node = root;
+    for (int i = 0; i < word.length(); i++) {
+      if (node -> containsKey(word[i])) {
+        node = node -> get(word[i]);
+      } else {
+        return 0;
+      }
+    }
+    return node -> getPrefix();
+  }
+
+  void erase(string & word) {
+    Node * node = root;
+    for (int i = 0; i < word.length(); i++) {
+      if (node -> containsKey(word[i])) {
+        Pnode = node -> get(word[i]);
+        node -> reducePrefix();
+      } else {
+        return;
+      }
+    }
+    node -> deleteEnd();
+  }
+};
+
+Q3)Complete String
+struct Node{
+	Node* links[26];
+	bool flag=0;
+	
+	void put(char ch,Node* node){
+		links[ch-'a']=node;
+	}
+	
+	Node* get(char ch){
+		return links[ch-'a'];
+	}
+	
+	bool containsKey(char ch){
+		return links[ch-'a']!=NULL;
+	}
+	
+	void setEnd(){
+		flag=1;
+	}
+};
+
+class Trie{
+	private:
+		Node* root;
+	public:
+		Trie(){
+			root=new Node();
+		}
+		
+		void insert(string word){
+			Node* node=root;
+			for(int i=0;i<word.size();i++){
+				if(!node->containsKey(word[i])){
+					node->put(word[i],new Node());
+				}
+				node=node->get(word[i]); 
+			}
+			node->setEnd();
+		}
+		
+		bool search(string word){
+			Node* node=root;
+			for(int i=0;i<word.size();i++){
+				if(!node->containsKey(word[i])){
+					return false;
+				}
+				node=node->get(word[i]); 
+			}
+			if(node->flag==1){
+				return 1;
+			}
+			
+			return 0;
+		}
+		
+		bool checkIfPrefixExists(string word){
+			bool ans=true;
+			Node* node=root;
+			for(int i=0;i<word.length();i++){
+				if(node->containsKey(word[i])){
+					node=node->get(word[i]);
+					if(node->flag==0) return false;
+				}
+				return false;
+			}
+			
+			return true;
+		}
+};
+string completeString(int n, vector<string> &a){
+    // Write your code here.
+    
+    Trie trie;
+    for(auto &it:a){
+			trie.insert(it)
+    }
+    
+    string ans="";
+    for(auto &it:a){
+			if(trie.checkIfPrefixExists(it)){
+				if(it.length()>ans.length()){
+					ans=it;
+				}else if(it.length()==ans.length() && it<ans){
+					ans=it;
+				}
+			}
+    }
+    
+    if(ans==""){
+			return "None"
+    }
+    
+    return ans;
+}
+//map approach
+#include<bits/stdc++.h>
+string completeString(int n, vector<string> &a){
+   
+    unordered_map<string,int> mp;
+    
+    for(auto it:a){
+        mp[it]=1;
+    }
+    string ans="";
+    for(int i=0;i<a.size();i++){
+        int flag=0;
+        for(int j=0;j<a[i].size();j++){
+            string t=a[i].substr(0,j+1);
+            if(mp.find(t)==mp.end()){
+                flag=1;
+                break;
+            }
+        }
+        if(!flag){
+                if(a[i].size()>ans.size()){
+                    ans=a[i];
+                }else if(a[i].size()==ans.size() && a[i]<ans){
+                  ans=a[i];  
+                }
+            }
+    }
+    
+    if(ans==""){
+        return "None";
+    }
+    
+    return ans;
+}
+
+Q3)Count distinct substrings:
+struct Node{
+	Node* links[26];
+	bool flag=0;
+	
+	void put(char ch,Node* node){
+		links[ch-'a']=node;
+	}
+	
+	Node* get(char ch){
+		return links[ch-'a'];
+	}
+	
+	bool containsKey(char ch){
+		return links[ch-'a']!=NULL;
+	}
+	
+	void setEnd(){
+		flag=1;
+	}
+	
+	bool isEnd(){
+		return flag;
+	}
+};
+int countDistinctSubstrings(string &s)
+{
+    //    Write your code here.
+    Node* root=new Node();
+    int ans=0;
+    for(int i=0;i<s.size();i++){
+			string t=s.substr(i);
+			Node* node=root;
+			for(int j=0;j<t.size();j++){
+				if(!node->containsKey(t[j])){
+					ans++;
+					node->put(t[j],new Node());
+				}
+				node=node->get(t[j]);
+			}
+    }
+    
+    return ans+1;
+}
+
+Q4)Power set
+vector<vector<int>> pwset(vector<int>v)
+{
+    //Write your code here
+    vector<vector<int>> ans;
+    
+    int n=v.size();
+    int s=pow(2,n);
+    
+    for(int i=0;i<s;i++){
+        vector<int> tmp;
+        for(int j=0;j<32;j++){
+            if(i&(1<<j)){
+                tmp.push_back(v[j]);
+            }
+        }
+        ans.push_back(tmp);
+    }
+    
+    return ans;
+}
+
+number of 1s are even then xor=0
+number of 1s are odd then xor=1 
+
+check if ith bit is set or not for x:
+	if x&(1<<i) then bit is set
+	else bit is not set
+
+turn on ith bit of x:
+	x=x or (1<<i)
+
+
+Q5)Maximum xor
+struct Node{
+	Node* links[2];
+	
+	void put(int bit,Node* node){
+		links[bit]=node;
+	}
+	
+	Node* get(int bit){
+		return links[bit];
+	}
+	
+	bool containsKey(int bit){
+		return links[bit]!=NULL;
+	}
+	
+};
+
+class Trie{
+	private:
+		Node* root;
+	public:
+		Trie(){
+			root=new Node();
+		}
+		
+		void insert(int num){
+			Node* node=root;
+			for(int i=31;i>=0;i--){
+				 int bit=num&(1<<i);
+				 if(!node->containsKey(bit)){
+					node->put(bit,new Node());
+				 }
+				 node=node->get(bit);
+			}
+		}
+		
+		int getMax(int num){
+			Node* node=root;
+			int maxNum=0;
+			for(int i=31;i>=0;i--){
+				int bit=num&(1<<i);
+				if(!node.containsKey(1-bit)){
+					maxNum=maxNum | (1<<i);
+					node=node->get(1-bit);
+				}else{
+					node=node->get(bit);
+				}
+			}
+			
+			return maxNum;
+		}
+};
+
+int maxXOR(int n, int m, vector<int> &arr1, vector<int> &arr2) 
+{
+    // Write your code here. 
+   Trie trie;
+   
+   for(auto it:arr1){
+		trie.insert(it);
+   }
+   int maxi=0;
+   for(auto it:arr2){
+		maxi=max(maxi,trie.getMax(it));
+   }
+   
+   return maxi;
+      
+}
+
+
 ------------------------------------------------------------------------------------------------
 Day 28: Operating System Revision (Refer Sheet for OS Questions) 
 ------------------------------------------------------------------------------------------------
