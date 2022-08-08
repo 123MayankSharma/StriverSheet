@@ -12,12 +12,18 @@ class MaxHeap{
     
 };
 
+for(int i=0;i<n;i)
 
 int main(){
   #ifndef ONLINE_JUDGE
-  freopen("inp.txt","r",stdin);
   freopen("out.txt","w",stdout);
+  freopen("inp.txt","r",stdin);
   #endif
+
+
+
+
+
   
    
 }

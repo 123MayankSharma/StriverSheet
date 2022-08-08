@@ -2264,7 +2264,7 @@ int kthElement(int arr1[], int arr2[], int n, int m, int k)
 		int r2=cut2==m?INT_MIN:arr2[cut2];
 		
 		if(l1<=r2 && l2<=r1){
-			return max(l1,l2);
+			return max(l1,l2); 
 		}
 		
 		else if(l1>r2){
@@ -2793,26 +2793,402 @@ TreeNode* buildTree(vector<int>& inorder, vector<int>& postorder) {
 		return ans;
 }
 
-q)Transform to Sum     Tree
-int util(BinaryTreeNode* root){
+
+q)flatten a linkdd list
+approach 1))O(n^2)
+void flatten(TreeNode* root) {
 	if(!root){
-		return 0;
+			return;
 	}
 	
+	//save left and right child
+	//of current root in temporary variables
+	TreeNode* tmpLeft=root->left;
+	TreeNode* tmpRight=root->right;
 	
+	//then remove left child
+	root->left=NULL;
+	
+	//repeat the above 2 steps for both left and right childs
+	flatten(tmpLeft);
+	flatten(tmpRight);
+	
+	//now attach the removed left child as right child of current root
+	//as given in question
+	root->right=tmpLeft;
+	
+	//make a temp variable which points to current root
+	TreeNode* curr=root;
+	//now keep moving downwards in the right side of tree until last right node
+	while(curr->right)curr=curr->right;
+	//attach the right child of current node there
+	curr->right=tmpRight;
 }
-void changeTree(BinaryTreeNode < int > * root) {
-    // Write your code here.
-    util(root);
-}  
+
+//method 2(Morris traversal)
 ------------------------------------------------------------------------------------------------
 Day 20: Binary Search Tree
+Q)BST from preorder
+TreeNode* util(vector<int> &preorder,int lo,int hi,int &idx){
+		if(idx>=preorder.size()) return NULL;
+		
+		if(preorder[idx]<lo || preorder[idx]>hi){
+				return NULL;
+		}
+		
+		TreeNode* root=new TreeNode(preorder[idx]);
+		idx+=1;
+		root->left=util(preorder,lo,root->val,idx);
+		root->right=util(preorder,root->val,hi,idx);
+		
+		return root;
+}
+TreeNode* bstFromPreorder(vector<int>& preorder) {
+		int lo=INT_MIN;
+		int hi=INT_MAX;
+		int idx=0;
+		TreeNode* ans=util(preorder,lo,hi,idx);
+		
+		return ans;
+}
+
+
+Q)Find lca of 2 nodes in bst
+ TreeNode* lowestCommonAncestor(TreeNode* root, TreeNode* p, TreeNode* q) {
+        // TreeNode* ans=root;
+        
+        while(root){
+					//if current node is smaller than both given node
+					//we need to find a bigger value node so we
+					//move to right subtree and move to left subtree for
+					//vice versa
+            if(q->val>root->val && p->val>root->val){
+                root=root->right;
+            }else if(q->val<root->val && p->val<root->val){
+                root=root->left;
+            }else{
+								//if root lies in the range of the 2 given nodes
+								//we return it
+                return root;
+            }
+        }
+        
+        return NULL;
+    }
+    
+Q)find inorder predecessor and successor in a bst
+void findPreSuc(Node* root, Node*& pre, Node*& suc, int key)
+{
+
+// Your code goes here
+		if(!root){
+			return;
+		}
+		
+		if(root->data==key && root->right && root->left){
+			if(root->left){
+				Node* tmp=root;
+			tmp=tmp->left;
+			while(tmp){
+				tmp=tmp->right;
+			}
+			pre=tmp;
+			}
+			
+			if(root->right){
+			Node* tmp1=root;
+			tmp1=tmp1->right;
+			while(tmp1){
+				tmp1=tmp1->left;
+			}
+			suc=tmp1;
+			}
+			return;
+		}
+		
+		if(root->data>key){
+			suc=root->data;
+			findPreSuc(root->left,pre,suc,key);
+		}else if(root->data<key){
+			pre=root->data;
+			root->data=findPreSuc(root->right,pre,suc,key);
+		}
+}
+
+Q) ceil in bst(same logic works for floor)
+void util(Node* root,int &v,int input){
+    if(!root){
+        
+        return;
+    }
+    
+    if(input==root->data){
+        v=root->data;
+        return;
+    }
+    //if current root value is smaller than input
+    //we move to right subtree
+    if(input>root->data){
+        util(root->right,v,input);
+    }else{
+				//if current root value is greater than input 
+				//then it is a possible candidate for being a ceil value
+				//of given input
+				
+        v=root->data;
+        util(root->left,v,input);
+    }
+    
+   
+}
+
+int findCeil(struct Node* root, int input) {
+    // your code here
+    int v=0;
+    util(root,v,input);
+    
+    // int idx=lower_bound(begin(v),end(v),input)-begin(v);
+    
+    return v;
+}
+
+Q) BST iterator
+//my approach
+/**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode() : val(0), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x) : val(x), left(nullptr), right(nullptr) {}
+ *     TreeNode(int x, TreeNode *left, TreeNode *right) : val(x), left(left), right(right) {}
+ * };
+ */
+class BSTIterator {
+public:
+    vector<int> v;
+    int key=INT_MIN;
+    void inorder(TreeNode* root){
+        if(!root){
+            return;
+        }
+        
+        inorder(root->left);
+        v.push_back(root->val);
+        inorder(root->right);
+    }
+    BSTIterator(TreeNode* root) {
+        inorder(root);
+    }
+    
+    int next() {
+        auto it=upper_bound(begin(v),end(v),key);
+        if(it!=v.end()){
+            key=*it;
+        }
+        return *it;
+    }
+    
+    bool hasNext() {
+        auto it=upper_bound(begin(v),end(v),key);
+        return it==end(v)?0:1;
+        
+    }
+};
+
+//stack solution
+class BSTIterator {
+stack<Node*> st;
+public:
+    void pushAll(TreeNode* root){
+			//will make sure smallest element is at top
+			while(root!=NULL){
+				st.push(root);
+				root=root->left;
+			}
+    }
+    BSTIterator(TreeNode* root) {
+				pushAll(root);
+    }
+    //after finding smallest element greater than 
+    //current element we push all elements just greater
+    //than the current element into the stack
+    int next() {
+        TreeNode* nxt=st.top();
+        st.pop();
+        pushAll(nxt->right);
+        return nxt->val;
+    }
+    
+    bool hasNext() {
+      return !st.empty();
+        
+    }
+};
+/**
+ * Your BSTIterator object will be instantiated and called as such:
+ * BSTIterator* obj = new BSTIterator(root);
+ * int param_1 = obj->next();
+ * bool param_2 = obj->hasNext();
+ */
+ 
+ Q)Serialize and deserialize a tree
+ /**
+ * Definition for a binary tree node.
+ * struct TreeNode {
+ *     int val;
+ *     TreeNode *left;
+ *     TreeNode *right;
+ *     TreeNode(int x) : val(x), left(NULL), right(NULL) {}
+ * };
+ */
+class Codec {
+public:
+    void serialize(TreeNode* root,string &s){
+        if(!root){
+            s+="null,";
+            return;
+        }
+        
+        s+=to_string(root->val)+",";
+        serialize(root->left,s);
+        serialize(root->right,s);
+    }
+    // Encodes a tree to a single string.
+    string serialize(TreeNode* root) {
+        string s="";
+        serialize(root,s);
+        return s;
+    }
+
+    // Decodes your encoded data to tree.
+    TreeNode* deserialize(vector<string> &v,int &idx){
+        if(idx>=v.size()||v[idx]=="null"){
+            idx++;
+            return NULL;
+        }
+        
+        TreeNode* root=new TreeNode(stoi(v[idx++]));
+        root->left=deserialize(v,idx);
+        root->right=deserialize(v,idx);
+        
+        return root;
+    }
+    TreeNode* deserialize(string data) {
+        vector<string> v;
+        
+        int start=0;
+        int end=data.find(",");
+        
+        while(end!=-1){
+            v.push_back(data.substr(start,end-start));
+            start=end+1;
+            end=data.find(",",start);
+        }
+        int idx=0;
+        TreeNode* ans=deserialize(v,idx);
+        return ans;
+    }
+};
+
+// Your Codec object will be instantiated and called as such:
+// Codec ser, deser;
+// TreeNode* ans = deser.deserialize(ser.serialize(root));
+
+Q)largest BST in binary Tree
+
 ------------------------------------------------------------------------------------------------
 Day 21: Binary Search Tree Part-II
 ------------------------------------------------------------------------------------------------
 Day 22: Binary Trees[Miscellaneous]
 ------------------------------------------------------------------------------------------------
 Day 23: Graph
+Q)Dijkstra Algo(Network delay time)
+class Solution {
+public:
+int networkDelayTime(vector<vector<int>>& times, int n, int k) {
+	vector<vector<pair<int,int>>> adj(105);
+	
+	
+	for(int i=0;i<times.size();i++){
+			adj[times[i][0]].push_back({times[i][1],times[i][2]});
+	}
+	
+	//making min heap
+	
+	priority_queue<pair<int,int>,vector<pair<int,int>>,greater<pair<int,int>>>  pq;
+	
+	
+	vector<int> dist(105,INT_MAX);
+	dist[k]=0;
+	pq.push({0,k});
+	vector<int> vis(105,0);
+	
+	while(!pq.empty()){
+			int node=pq.top().second;;
+			pq.pop();
+			if(!vis[node]){
+					
+			vis[node]=1;
+			for(auto it:adj[node]){
+					int curr_child=it.first;
+					int edge_curr_child=it.second;
+					
+					if(dist[curr_child]>dist[node]+edge_curr_child){
+							dist[curr_child]=dist[node]+edge_curr_child;
+							pq.push({dist[curr_child],curr_child});
+					}
+			}
+			}
+	}
+	
+	int ans=INT_MIN;
+	for(int i=1;i<=n;i++){
+			if(i!=k && dist[i]==INT_MAX) return -1;
+			ans=max(ans,dist[i]);
+	}
+	
+	return ans;
+}
+};
+
+Q)All pair Shortest Path algo(floyd warshall algo)
+int floydWarshallAlgo(vector<vector<pair<int,int>> adj){
+	vector<vector<int>> dist(100005,vector<int>(100005,-1));
+	
+	for(int i=0;i<n;++i){
+		for(int j=0;j<n;++j){
+			if(i==j){
+				dist[i][j]=0;
+			}else{
+				dist[i][j]=INT_MAX;
+			}
+		}
+	}
+	
+	int n,m;
+	cin>>n>>m;
+	for(int i=0;i<m;++i){
+		int x,y,wt;
+		cin>>x>>y>>wt;
+		//this means when we have allowed
+		//calculation of path using 0 nodes 
+		dist[x][y]=wt;
+	}
+	
+	//calculating all pair shoertest path
+	for(int k=1;k<=n;k++){
+		for(int i=0;i<n;i++){
+			for(int j=0;j<n;j++){
+				//if any of them is infinity it simply means
+				//path doesnt exist between i and k or k and j or both
+				if(dist[i][k]!=INT_MAX && dist[k][j]!=INT_MAX)
+				dist[i][j]=min(dist[i][j],dist[i][k]+dist[k][j]);
+			}
+		}
+	}
+}
 ------------------------------------------------------------------------------------------------
 Day 24: Graph Part-II
 ------------------------------------------------------------------------------------------------
